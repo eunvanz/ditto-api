@@ -1,21 +1,20 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import ormconfig from 'ormconfig';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { isProd } from './constants/environment';
 import { ProjectsModule } from './projects/projects.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DATABASE_HOST || '',
-      port: Number(process.env.DATABASE_PORT || ''),
-      username: process.env.DATABASE_USER || '',
-      password: process.env.DATABASE_PASSWORD || '',
-      database: process.env.DATABASE_NAME || '',
-      entities: ['*.entity.ts'],
-      synchronize: process.env.NODE_ENV === 'dev',
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
+      ignoreEnvFile: isProd,
     }),
+    TypeOrmModule.forRoot(ormconfig),
     ProjectsModule,
   ],
   controllers: [AppController],
