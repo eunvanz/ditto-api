@@ -1,13 +1,13 @@
 import { Column } from 'typeorm';
 
 export class Record {
-  @Column({ type: 'timestamp with time zone' })
+  @Column({ type: 'timestamp' })
   createdAt: string;
 
   @Column()
   createdBy: string;
 
-  @Column({ type: 'timestamp with time zone' })
+  @Column({ type: 'timestamp' })
   updatedAt: string;
 
   @Column()
