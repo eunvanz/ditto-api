@@ -36,7 +36,9 @@ const projects: Project[] = [
   },
 ];
 
-export const mockProject = {
+const mockProjects = {
   project,
   projects,
 };
+
+export default mockProjects;

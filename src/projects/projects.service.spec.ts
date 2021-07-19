@@ -1,12 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Project } from './project.entity';
-import { mockProject } from './project.mock';
+import mockProjects from './projects.mock';
 import { ProjectsService } from './projects.service';
 
 class MockRepository {
   async find() {
-    return mockProject.projects;
+    return mockProjects.projects;
   }
 }
 
@@ -32,7 +32,7 @@ describe('ProjectsService', () => {
     it('전체 프로젝트를 조회한다.', async () => {
       const result = await service.findAllByUser('testUid');
 
-      expect(result).toBe(mockProject.projects);
+      expect(result).toBe(mockProjects.projects);
     });
   });
 });
