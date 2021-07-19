@@ -1,4 +1,8 @@
-import { ForbiddenException, NestMiddleware } from '@nestjs/common';
+import {
+  ForbiddenException,
+  InternalServerErrorException,
+  NestMiddleware,
+} from '@nestjs/common';
 import { NextFunction } from 'express';
 import * as admin from 'firebase-admin';
 
@@ -9,9 +13,13 @@ export class AuthMiddleware implements NestMiddleware {
       try {
         const decodedToken = await admin.auth().verifyIdToken(token);
         const { uid } = decodedToken;
-        req.headers.set('uid', uid);
+        req.headers['uid'] = uid;
       } catch (error) {
-        throw new ForbiddenException('Invalid user access.');
+        if (error.code === 'auth/argument-error') {
+          throw new ForbiddenException('Invalid user access.');
+        } else {
+          throw new InternalServerErrorException();
+        }
       }
     }
     next();
