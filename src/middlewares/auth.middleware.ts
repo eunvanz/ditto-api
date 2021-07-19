@@ -13,10 +13,13 @@ export class AuthMiddleware implements NestMiddleware {
       try {
         const decodedToken = await admin.auth().verifyIdToken(token);
         const { uid } = decodedToken;
-        req.headers['uid'] = uid;
+        req.headers['x-uid'] = uid;
+        req.headers['x-user'] = decodedToken;
       } catch (error) {
         if (error.code === 'auth/argument-error') {
-          throw new ForbiddenException('Invalid user access.');
+          throw new ForbiddenException('Token is invalid.');
+        } else if (error.code === 'auth/id-token-expired') {
+          throw new ForbiddenException('Token has expired.');
         } else {
           throw new InternalServerErrorException();
         }
