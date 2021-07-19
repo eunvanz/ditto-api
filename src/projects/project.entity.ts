@@ -3,8 +3,8 @@ import { Record } from '../entity-types/record';
 
 @Entity('PROJECT')
 export class Project {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column(() => Record)
   record: Record;
@@ -12,6 +12,8 @@ export class Project {
   @Column()
   title: string;
 
-  @Column()
-  description: string;
+  @Column({
+    nullable: true,
+  })
+  description?: string;
 }

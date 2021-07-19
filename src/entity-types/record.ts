@@ -1,15 +1,20 @@
 import { Column } from 'typeorm';
 
 export class Record {
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: string;
 
-  @Column()
+  // TODO: 나중에 고쳐야 함
+  @Column({
+    nullable: true,
+  })
   createdBy: string;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   updatedAt: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   updatedBy: string;
 }

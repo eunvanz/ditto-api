@@ -16,10 +16,10 @@ export class ProjectsService {
     return await this.projectsRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const project = await this.projectsRepository.findOne(id);
     if (!project) {
-      throw new NotFoundException('The project is not found.');
+      throw new NotFoundException('Requested project is not found.');
     }
     return project;
   }
@@ -28,7 +28,7 @@ export class ProjectsService {
     return await this.projectsRepository.save(project);
   }
 
-  async update(id: number, project: UpdateProjectDto) {
+  async update(id: string, project: UpdateProjectDto) {
     const oldProject = await this.findOne(id);
     return await this.projectsRepository.update(id, {
       ...oldProject,
@@ -36,7 +36,7 @@ export class ProjectsService {
     });
   }
 
-  async delete(id: number) {
+  async delete(id: string) {
     await this.findOne(id);
     return await this.projectsRepository.delete(id);
   }

@@ -21,7 +21,7 @@ export class ProjectsController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: string) {
     return await this.projectsService.findOne(id);
   }
 
@@ -31,12 +31,12 @@ export class ProjectsController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() project: UpdateProjectDto) {
+  async update(@Param('id') id: string, @Body() project: UpdateProjectDto) {
     return await this.projectsService.update(id, project);
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number) {
+  async delete(@Param('id') id: string) {
     return await this.projectsService.delete(id);
   }
 }
