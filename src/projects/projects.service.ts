@@ -12,7 +12,7 @@ export class ProjectsService {
     private readonly projectsRepository: Repository<Project>,
   ) {}
 
-  async findAll() {
+  async findAllByUser(uid: string) {
     return await this.projectsRepository.find();
   }
 

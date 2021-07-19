@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Headers,
   Param,
   Post,
   Put,
@@ -15,9 +16,9 @@ import { ProjectsService } from './projects.service';
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
-  @Get()
-  async findAll() {
-    return await this.projectsService.findAll();
+  @Get('/user')
+  async findAllByUser(@Headers('uid') uid: string) {
+    return await this.projectsService.findAllByUser(uid);
   }
 
   @Get(':id')

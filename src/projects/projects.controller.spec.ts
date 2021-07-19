@@ -9,7 +9,7 @@ describe('ProjectsController', () => {
 
   const mockProjectsService = {
     findOne: jest.fn(),
-    findAll: jest.fn(),
+    findAllByUser: jest.fn(),
     save: jest.fn(),
     update: jest.fn(),
     delete: jest.fn(),
@@ -39,11 +39,11 @@ describe('ProjectsController', () => {
     });
   });
 
-  describe('findAll', () => {
-    it('모든 프로젝트를 조회한다.', () => {
-      controller.findAll();
+  describe('findAllByUser', () => {
+    it('유저의 모든 프로젝트를 조회한다.', () => {
+      controller.findAllByUser('testUid');
 
-      expect(mockProjectsService.findAll).toBeCalledWith();
+      expect(mockProjectsService.findAllByUser).toBeCalledWith('testUid');
     });
   });
 

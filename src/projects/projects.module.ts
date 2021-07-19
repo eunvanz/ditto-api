@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RequireMiddleware } from 'src/middlewares/require.middleware';
 import { Project } from 'src/projects/project.entity';
 import { ProjectsController } from './projects.controller';
 import { ProjectsService } from './projects.service';
@@ -9,4 +10,8 @@ import { ProjectsService } from './projects.service';
   controllers: [ProjectsController],
   providers: [ProjectsService],
 })
-export class ProjectsModule {}
+export class ProjectsModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequireMiddleware).forRoutes(ProjectsController);
+  }
+}

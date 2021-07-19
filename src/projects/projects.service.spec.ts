@@ -28,9 +28,9 @@ describe('ProjectsService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('findAll', () => {
+  describe('findAllByUser', () => {
     it('전체 프로젝트를 조회한다.', async () => {
-      const result = await service.findAll();
+      const result = await service.findAllByUser('testUid');
 
       expect(result).toBe(mockProject.projects);
     });
