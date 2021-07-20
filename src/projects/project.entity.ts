@@ -1,14 +1,11 @@
 import { ProjectToUser } from 'src/entities/project-to-user.entity';
+import { Recordable } from 'src/entities/recordable.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Record } from '../entities/record.entity-type';
 
 @Entity('subject')
-export class Project {
+export class Project extends Recordable {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column(() => Record)
-  record: Record;
 
   @Column()
   title: string;
@@ -19,5 +16,5 @@ export class Project {
   description?: string;
 
   @OneToMany(() => ProjectToUser, (projectToUser) => projectToUser.project)
-  projectToUser: ProjectToUser[];
+  projectToUser: Promise<ProjectToUser[]>;
 }

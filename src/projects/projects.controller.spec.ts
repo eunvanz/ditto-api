@@ -1,4 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { UserDto } from 'src/users/dto/user.dto';
+import mockUsers from 'src/users/users.mock';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 import { ProjectsController } from './projects.controller';
@@ -53,7 +55,9 @@ describe('ProjectsController', () => {
         title: '디또',
       };
 
-      controller.save(newProject);
+      const user: UserDto = mockUsers.user;
+
+      controller.save(user, newProject);
 
       expect(mockProjectsService.save).toBeCalledWith(newProject);
     });

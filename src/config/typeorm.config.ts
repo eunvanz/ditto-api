@@ -5,6 +5,7 @@ import {
 } from '@nestjs/typeorm';
 import { join } from 'path';
 import { isDev } from 'src/constants/environment';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 export default class TypeOrmConfig {
   static getOrmConfig(configService: ConfigService): TypeOrmModuleOptions {
@@ -20,6 +21,7 @@ export default class TypeOrmConfig {
         : ['dist/**/*.entity{.ts,.js}'],
       synchronize: isDev,
       logging: isDev,
+      namingStrategy: new SnakeNamingStrategy(),
     };
   }
 }

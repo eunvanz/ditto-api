@@ -1,7 +1,7 @@
 import { Project } from 'src/projects/project.entity';
 import { User } from 'src/users/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Record } from './record.entity-type';
+import { Recordable } from './recordable.entity';
 
 export enum PROJECT_AUTH {
   GUEST = 'GUEST',
@@ -10,15 +10,12 @@ export enum PROJECT_AUTH {
 }
 
 @Entity()
-export class ProjectToUser {
+export class ProjectToUser extends Recordable {
   @PrimaryGeneratedColumn()
   projectToUserId: number;
 
   @Column()
   authorization: PROJECT_AUTH;
-
-  @Column(() => Record)
-  record: Record;
 
   @ManyToOne(() => Project, (project) => project.projectToUser)
   project: Project;
