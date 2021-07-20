@@ -13,5 +13,5 @@ export class User {
   name: string;
 
   @OneToMany(() => ProjectToUser, (projectToUser) => projectToUser.user)
-  projectToUser: ProjectToUser;
+  projectToUser: Promise<ProjectToUser[]>;
 }

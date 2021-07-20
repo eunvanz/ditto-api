@@ -23,7 +23,11 @@ export class ProjectsService {
   ) {}
 
   async findAllByUser(uid: string) {
-    return await this.projectsRepository.find();
+    const projectToUsers = await this.projectToUserRepository.find({
+      user: { id: uid },
+    });
+    const projects = projectToUsers.map((item) => item.project);
+    return projects;
   }
 
   async findOne(id: string) {

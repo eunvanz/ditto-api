@@ -17,7 +17,7 @@ export class ProjectToUser extends Recordable {
   @Column()
   authorization: PROJECT_AUTH;
 
-  @ManyToOne(() => Project, (project) => project.projectToUser)
+  @ManyToOne(() => Project, (project) => project.projectToUser, { eager: true })
   project: Project;
 
   @ManyToOne(() => User, (user) => user.projectToUser)
